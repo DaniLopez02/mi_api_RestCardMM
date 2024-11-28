@@ -1,0 +1,77 @@
+Usuario
+    -Get all 
+    -Crear usuario 
+
+CREATE TABLE usuario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+Productos
+    -Obtener producto por id de usuario 
+    -Crear un producto
+    -Listar Productos
+
+CREATE TABLE producto (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion VARCHAR(100) not null,
+    usuario_id INT NOT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+Marcas
+    -Crear Marcas 
+    -ListarMarcas
+
+CREATE TABLE marca (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL
+);
+
+Producto_marca
+    -Crear relacion producto marca 
+
+CREATE TABLE producto_marca (
+    producto_id INT,
+    marca_id INT,
+    PRIMARY KEY (producto_id, marca_id),  -- Clave primaria compuesta
+    FOREIGN KEY (producto_id) REFERENCES producto(id),
+    FOREIGN KEY (marca_id) REFERENCES marca(id),
+);
+
+Categoria
+    -Crear categoria
+    -listar todas las categorias
+    
+CREATE TABLE categoria (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL
+);
+
+Categorias_Marcas
+    -crear una relacion entre categorias y marcas
+
+    CREATE TABLE categoria_marcas (
+    categoria_id INT,
+    marca_id INT,
+    PRIMARY KEY (categoria_id, marca_id), 
+    FOREIGN KEY (categoria_id) REFERENCES categoria(id),
+    FOREIGN KEY (marca_id) REFERENCES marca(id),
+);
+
+Categoria_Producto
+    -crear una relacion entre categorias y productos 
+
+    CREATE TABLE categoria_productos (
+    categoria_id INT,
+    producto_id INT,
+    PRIMARY KEY (categoria_id, producto_id), 
+    FOREIGN KEY (categoria_id) REFERENCES categoria(id),
+    FOREIGN KEY (producto_id) REFERENCES producto(id),
+);
+
+https://api.ejemplo.com/v1/usuarios/123
+https://api.ejemplo.com/{versión}/{recurso}/{id}
+https://api.ejemplo.com/v1/usuarios?id=3
